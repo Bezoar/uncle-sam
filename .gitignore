@@ -179,3 +179,4 @@ cython_debug/
 
 # AI-generated files, run restore-ai-generated-defaults.py to restore
 uncle-sam-billboard-python
+**/.claude/settings.local.json
