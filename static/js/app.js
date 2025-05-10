@@ -81,9 +81,9 @@ downloadBtn.addEventListener('click', function() {
 // Reset to defaults
 resetBtn.addEventListener('click', function() {
     messageInput.value = 'WELCOME TO OREGON';
-    fontSizeSlider.value = 50;
-    fontSizeValue.textContent = '50px';
-    textColorInput.value = '#ffffff';
+    fontSizeSlider.value = 80;
+    fontSizeValue.textContent = '80px';
+    textColorInput.value = '#000000';
     charCount.textContent = '17/200';
     billboardPreview.style.display = 'none';
     loading.style.display = 'block';
