@@ -13,6 +13,8 @@ BILLBOARD_IMAGE_PATH = 'static/img/uncle-sam-bg.png'
 TEMP_DIR = tempfile.gettempdir()
 MAX_MESSAGE_LENGTH = 200
 DEFAULT_SIGN_TEXT = "WELCOME TO OREGON\nMAKE THIS SIGN SAY ANYTHING\nTHERE ARE FOUR LINES IN HERE\nFEEL THE FREEDOM, IT BURNS"
+# Spacing between text lines in pixels
+LINE_SPACING_EXTRA = 19
 
 # Cache for billboard image
 billboard_image_cache = None
@@ -110,8 +112,8 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
 
     # Calculate available space and position text between the horizontal lines
     available_height = billboard_bottom - billboard_top
-    # Increase line spacing by adding 19 pixels to the line height
-    line_height = min(font_size * 1.2 + 16, available_height / max(len(lines), 1))
+    # Increase line spacing using the extra spacing constant
+    line_height = min(font_size * 1.2 + LINE_SPACING_EXTRA, available_height / max(len(lines), 1))
     total_height = len(lines) * line_height
 
     # Start from the billboard's top position, or center if there's extra space
@@ -128,7 +130,7 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
         # Move text to the right by 100 pixels
         left_margin = (width * 0.28) + 100
         x = left_margin
-        y = start_y + (i * line_height + 19)
+        y = start_y + (i * line_height)
 
         # Draw text (left-justified)
         draw.text((x, y), line, font=font, fill=text_color)
