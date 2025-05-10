@@ -12,6 +12,7 @@ app = Flask(__name__)
 BILLBOARD_IMAGE_PATH = 'static/img/uncle-sam-bg.png'
 TEMP_DIR = tempfile.gettempdir()
 MAX_MESSAGE_LENGTH = 200
+DEFAULT_SIGN_TEXT = "WELCOME TO OREGON, MOTHERFUCKER\nMAKE THIS SIGN SAY WHAT YOU WANT\nTHERE ARE FOUR LINES\nIN THIS IMAGE. NO REALLY"
 
 # Cache for billboard image
 billboard_image_cache = None
@@ -144,9 +145,9 @@ def generate():
     """Generate billboard image"""
     try:
         data = request.json
-        message = data.get('message', 'WELCOME TO OREGON')
-        font_size = int(data.get('fontSize', 50))
-        text_color = data.get('textColor', '#ffffff')
+        message = data.get('message', DEFAULT_SIGN_TEXT)
+        font_size = int(data.get('fontSize', 80))
+        text_color = data.get('textColor', '#000000')
         
         # Limit message length
         message = message[:MAX_MESSAGE_LENGTH]
