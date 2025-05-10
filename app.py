@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_file
 from PIL import Image, ImageDraw, ImageFont
-import requests
 from io import BytesIO
 import os
 import tempfile
@@ -10,7 +9,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 # Configuration
-BILLBOARD_IMAGE_URL = 'https://res.cloudinary.com/sagacity/image/upload/c_crop,h_3318,w_4982,x_83,y_135/c_limit,dpr_1,f_auto,fl_lossy,q_80,w_1899/2BG8AYB_avukfs.jpg'
+BILLBOARD_IMAGE_PATH = 'static/img/sign-uncle-sam.jpg'
 TEMP_DIR = tempfile.gettempdir()
 MAX_MESSAGE_LENGTH = 200
 
@@ -18,18 +17,17 @@ MAX_MESSAGE_LENGTH = 200
 billboard_image_cache = None
 
 def get_billboard_image():
-    """Download and cache the billboard image"""
+    """Load and cache the billboard image"""
     global billboard_image_cache
-    
+
     if billboard_image_cache is None:
         try:
-            response = requests.get(BILLBOARD_IMAGE_URL)
-            billboard_image_cache = Image.open(BytesIO(response.content))
+            billboard_image_cache = Image.open(BILLBOARD_IMAGE_PATH)
         except Exception as e:
             print(f"Error loading billboard image: {e}")
             # Create a fallback blue background
             billboard_image_cache = Image.new('RGB', (800, 533), color='#1e3a8a')
-    
+
     return billboard_image_cache.copy()
 
 def get_font(size):
