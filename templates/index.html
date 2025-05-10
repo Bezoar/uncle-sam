@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uncle Sam I-5 Billboard Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Uncle Sam I-5 Billboard Generator</h1>
+            <p class="subtitle">Create your own message on the famous Uncle Sam billboard!</p>
+        </header>
+        
+        <main>
+            <div class="billboard-container">
+                <img id="billboardPreview" src="" alt="Billboard Preview" style="display: none;">
+                <div class="loading" id="loading">Loading billboard...</div>
+            </div>
+
+            <div class="controls">
+                <div class="input-group">
+                    <label for="messageInput">Your Message:</label>
+                    <textarea id="messageInput" placeholder="Type your message here..." maxlength="200">WELCOME TO OREGON</textarea>
+                    <div class="character-count" id="charCount">17/200</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="fontSize">Font Size:</label>
+                    <input type="range" id="fontSize" min="20" max="80" value="50">
+                    <span id="fontSizeValue">50px</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="textColor">Text Color:</label>
+                    <input type="color" id="textColor" value="#ffffff">
+                </div>
+
+                <div class="button-group">
+                    <button id="generateBtn" class="primary-btn">Generate Billboard</button>
+                    <button id="downloadBtn" class="primary-btn" style="display: none;">Download Image</button>
+                    <button id="resetBtn" class="secondary-btn">Reset</button>
+                </div>
+
+                <div class="error-message" id="errorMessage"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Create your own version of the famous Uncle Sam I-5 billboard!</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
