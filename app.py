@@ -117,8 +117,8 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
     if total_height < available_height:
         start_y = billboard_top + (available_height - total_height) / 2
 
-    # Move text up by 100 pixels
-    start_y -= 100
+    # Move text up by 200 pixels
+    start_y -= 200
 
     # Draw text
     for i, line in enumerate(lines):
