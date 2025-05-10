@@ -9,7 +9,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 # Configuration
-BILLBOARD_IMAGE_PATH = 'static/img/sign-uncle-sam.jpg'
+BILLBOARD_IMAGE_PATH = 'static/img/uncle-sam-bg.png'
 TEMP_DIR = tempfile.gettempdir()
 MAX_MESSAGE_LENGTH = 200
 
