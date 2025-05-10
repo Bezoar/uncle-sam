@@ -86,27 +86,37 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
     # Get base image
     img = get_billboard_image()
     width, height = img.size
-    
+
     # Create drawing context
     draw = ImageDraw.Draw(img)
-    
+
     # Get font
     font = get_font(font_size)
-    
+
     # Convert text to uppercase
     message = message.upper()
-    
+
     # Calculate text area (70% of image width)
     max_text_width = int(width * 0.7)
-    
+
     # Wrap text
     lines = wrap_text(message, font, max_text_width, draw)
-    
-    # Calculate text position
-    line_height = font_size * 1.2
+
+    # Define the billboard's horizontal line positions
+    # These values are approximate and based on the image dimensions (1784 x 1166)
+    billboard_top = height * 0.28    # Top of the text area
+    billboard_bottom = height * 0.72  # Bottom of the text area
+
+    # Calculate available space and position text between the horizontal lines
+    available_height = billboard_bottom - billboard_top
+    line_height = min(font_size * 1.2, available_height / max(len(lines), 1))
     total_height = len(lines) * line_height
-    start_y = (height - total_height) / 2
-    
+
+    # Start from the billboard's top position, or center if there's extra space
+    start_y = billboard_top
+    if total_height < available_height:
+        start_y = billboard_top + (available_height - total_height) / 2
+
     # Draw text
     for i, line in enumerate(lines):
         # Calculate text position for centering
@@ -117,7 +127,7 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
 
         # Draw text
         draw.text((x, y), line, font=font, fill=text_color)
-    
+
     return img
 
 @app.route('/')
