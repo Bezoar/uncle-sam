@@ -50,29 +50,38 @@ def get_font(size):
     return font
 
 def wrap_text(text, font, max_width, draw):
-    """Wrap text to fit within max_width"""
-    words = text.split()
-    lines = []
-    current_line = []
-    
-    for word in words:
-        test_line = ' '.join(current_line + [word])
-        bbox = draw.textbbox((0, 0), test_line, font=font)
-        width = bbox[2] - bbox[0]
-        
-        if width <= max_width:
-            current_line.append(word)
-        else:
-            if current_line:
-                lines.append(' '.join(current_line))
-            current_line = [word]
-    
-    if current_line:
-        lines.append(' '.join(current_line))
-    
-    return lines
+    """Wrap text to fit within max_width and respect newlines"""
+    # Split the text into paragraphs based on newlines
+    paragraphs = text.split('\n')
+    all_lines = []
 
-def generate_billboard(message, font_size=50, text_color='#ffffff'):
+    for paragraph in paragraphs:
+        if not paragraph.strip():
+            # Add empty lines for blank paragraphs (consecutive newlines)
+            all_lines.append('')
+            continue
+
+        words = paragraph.split()
+        current_line = []
+
+        for word in words:
+            test_line = ' '.join(current_line + [word])
+            bbox = draw.textbbox((0, 0), test_line, font=font)
+            width = bbox[2] - bbox[0]
+
+            if width <= max_width:
+                current_line.append(word)
+            else:
+                if current_line:
+                    all_lines.append(' '.join(current_line))
+                current_line = [word]
+
+        if current_line:
+            all_lines.append(' '.join(current_line))
+
+    return all_lines
+
+def generate_billboard(message, font_size=80, text_color='#000000'):
     """Generate billboard image with custom text"""
     # Get base image
     img = get_billboard_image()
