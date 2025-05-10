@@ -119,13 +119,12 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
 
     # Draw text
     for i, line in enumerate(lines):
-        # Calculate text position for centering
-        bbox = draw.textbbox((0, 0), line, font=font)
-        text_width = bbox[2] - bbox[0]
-        x = (width - text_width) / 2
+        # Use a consistent left margin (20% from the left edge of the image)
+        left_margin = width * 0.2
+        x = left_margin
         y = start_y + (i * line_height)
 
-        # Draw text
+        # Draw text (left-justified)
         draw.text((x, y), line, font=font, fill=text_color)
 
     return img
