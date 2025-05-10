@@ -126,9 +126,9 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
     for i, line in enumerate(lines):
         # Use a consistent left margin (20% from the left edge of the image)
         # Move text to the right by 100 pixels
-        left_margin = (width * 0.2) + 100
+        left_margin = (width * 0.28) + 100
         x = left_margin
-        y = start_y + (i * line_height)
+        y = start_y + (i * line_height + 19)
 
         # Draw text (left-justified)
         draw.text((x, y), line, font=font, fill=text_color)
