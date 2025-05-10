@@ -12,7 +12,7 @@ app = Flask(__name__)
 BILLBOARD_IMAGE_PATH = 'static/img/uncle-sam-bg.png'
 TEMP_DIR = tempfile.gettempdir()
 MAX_MESSAGE_LENGTH = 200
-DEFAULT_SIGN_TEXT = "WELCOME TO OREGON, MOTHERFUCKER\nMAKE THIS SIGN SAY WHAT YOU WANT\nTHERE ARE FOUR LINES\nIN THIS IMAGE. NO REALLY"
+DEFAULT_SIGN_TEXT = "WELCOME TO OREGON\nMAKE THIS SIGN SAY ANYTHING\nTHERE ARE FOUR LINES IN HERE\nFEEL THE FREEDOM, IT BURNS"
 
 # Cache for billboard image
 billboard_image_cache = None
@@ -111,7 +111,7 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
     # Calculate available space and position text between the horizontal lines
     available_height = billboard_bottom - billboard_top
     # Increase line spacing by adding 19 pixels to the line height
-    line_height = min(font_size * 1.2 + 19, available_height / max(len(lines), 1))
+    line_height = min(font_size * 1.2 + 16, available_height / max(len(lines), 1))
     total_height = len(lines) * line_height
 
     # Start from the billboard's top position, or center if there's extra space
