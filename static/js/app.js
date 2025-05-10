@@ -26,7 +26,7 @@ fontSizeSlider.addEventListener('input', function() {
 
 // Generate billboard
 generateBtn.addEventListener('click', async function() {
-    const message = messageInput.value || 'WELCOME TO OREGON';
+    const message = messageInput.value;
     const fontSize = fontSizeSlider.value;
     const textColor = textColorInput.value;
     
@@ -80,11 +80,11 @@ downloadBtn.addEventListener('click', function() {
 
 // Reset to defaults
 resetBtn.addEventListener('click', function() {
-    messageInput.value = 'WELCOME TO OREGON';
+    messageInput.value = 'WELCOME TO OREGONasdasd\nMAKE THIS SIGN SAY WHAT YOU WANT\nTHERE ARE FOUR LINES\nIN THIS IMAGE';
     fontSizeSlider.value = 80;
     fontSizeValue.textContent = '80px';
     textColorInput.value = '#000000';
-    charCount.textContent = '17/200';
+    charCount.textContent = '96/200';
     billboardPreview.style.display = 'none';
     loading.style.display = 'block';
     downloadBtn.style.display = 'none';
