@@ -80,11 +80,11 @@ downloadBtn.addEventListener('click', function() {
 
 // Reset to defaults
 resetBtn.addEventListener('click', function() {
-    messageInput.value = 'WELCOME TO OREGON, MOTHERFUCKER\nMAKE THIS SIGN SAY WHAT YOU WANT\nTHERE ARE FOUR LINES\nIN THIS IMAGE. NO REALLY';
+    messageInput.value = 'WELCOME TO OREGON\nMAKE THIS SIGN SAY ANYTHING\nTHERE ARE FOUR LINES IN HERE\nFEEL THE FREEDOM, IT BURNS';
     fontSizeSlider.value = 80;
     fontSizeValue.textContent = '80px';
     textColorInput.value = '#000000';
-    charCount.textContent = '110/200';
+    charCount.textContent = '101/200';
     billboardPreview.style.display = 'none';
     loading.style.display = 'block';
     downloadBtn.style.display = 'none';
