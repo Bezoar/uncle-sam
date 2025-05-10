@@ -109,7 +109,8 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
 
     # Calculate available space and position text between the horizontal lines
     available_height = billboard_bottom - billboard_top
-    line_height = min(font_size * 1.2, available_height / max(len(lines), 1))
+    # Increase line spacing by adding 19 pixels to the line height
+    line_height = min(font_size * 1.2 + 19, available_height / max(len(lines), 1))
     total_height = len(lines) * line_height
 
     # Start from the billboard's top position, or center if there's extra space
