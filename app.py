@@ -12,6 +12,7 @@ app = Flask(__name__)
 BILLBOARD_IMAGE_PATH = 'static/img/uncle-sam-bg.png'
 TEMP_DIR = tempfile.gettempdir()
 MAX_MESSAGE_LENGTH = 200
+DEFAULT_SIGN_TEXT = "WELCOME TO OREGON\nMAKE THIS SIGN SAY ANYTHING\nTHERE ARE FOUR LINES IN HERE\nFEEL THE FREEDOM, IT BURNS"
 
 # Cache for billboard image
 billboard_image_cache = None
@@ -86,42 +87,52 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
     # Get base image
     img = get_billboard_image()
     width, height = img.size
-    
+
     # Create drawing context
     draw = ImageDraw.Draw(img)
-    
+
     # Get font
     font = get_font(font_size)
-    
+
     # Convert text to uppercase
     message = message.upper()
-    
+
     # Calculate text area (70% of image width)
     max_text_width = int(width * 0.7)
-    
+
     # Wrap text
     lines = wrap_text(message, font, max_text_width, draw)
-    
-    # Calculate text position
-    line_height = font_size * 1.2
+
+    # Define the billboard's horizontal line positions
+    # These values are approximate and based on the image dimensions (1784 x 1166)
+    billboard_top = height * 0.28    # Top of the text area
+    billboard_bottom = height * 0.72  # Bottom of the text area
+
+    # Calculate available space and position text between the horizontal lines
+    available_height = billboard_bottom - billboard_top
+    # Increase line spacing by adding 19 pixels to the line height
+    line_height = min(font_size * 1.2 + 16, available_height / max(len(lines), 1))
     total_height = len(lines) * line_height
-    start_y = (height - total_height) / 2
-    
-    # Draw text with shadow
+
+    # Start from the billboard's top position, or center if there's extra space
+    start_y = billboard_top
+    if total_height < available_height:
+        start_y = billboard_top + (available_height - total_height) / 2
+
+    # Move text up by 200 pixels
+    start_y -= 200
+
+    # Draw text
     for i, line in enumerate(lines):
-        # Calculate text position for centering
-        bbox = draw.textbbox((0, 0), line, font=font)
-        text_width = bbox[2] - bbox[0]
-        x = (width - text_width) / 2
-        y = start_y + (i * line_height)
-        
-        # Draw shadow
-        shadow_offset = 3
-        draw.text((x + shadow_offset, y + shadow_offset), line, font=font, fill='black')
-        
-        # Draw main text
+        # Use a consistent left margin (20% from the left edge of the image)
+        # Move text to the right by 100 pixels
+        left_margin = (width * 0.28) + 100
+        x = left_margin
+        y = start_y + (i * line_height + 19)
+
+        # Draw text (left-justified)
         draw.text((x, y), line, font=font, fill=text_color)
-    
+
     return img
 
 @app.route('/')
@@ -134,9 +145,9 @@ def generate():
     """Generate billboard image"""
     try:
         data = request.json
-        message = data.get('message', 'WELCOME TO OREGON')
-        font_size = int(data.get('fontSize', 50))
-        text_color = data.get('textColor', '#ffffff')
+        message = data.get('message', DEFAULT_SIGN_TEXT)
+        font_size = int(data.get('fontSize', 80))
+        text_color = data.get('textColor', '#000000')
         
         # Limit message length
         message = message[:MAX_MESSAGE_LENGTH]
