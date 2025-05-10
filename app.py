@@ -107,19 +107,15 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
     total_height = len(lines) * line_height
     start_y = (height - total_height) / 2
     
-    # Draw text with shadow
+    # Draw text
     for i, line in enumerate(lines):
         # Calculate text position for centering
         bbox = draw.textbbox((0, 0), line, font=font)
         text_width = bbox[2] - bbox[0]
         x = (width - text_width) / 2
         y = start_y + (i * line_height)
-        
-        # Draw shadow
-        shadow_offset = 3
-        draw.text((x + shadow_offset, y + shadow_offset), line, font=font, fill='black')
-        
-        # Draw main text
+
+        # Draw text
         draw.text((x, y), line, font=font, fill=text_color)
     
     return img
