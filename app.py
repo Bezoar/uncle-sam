@@ -14,7 +14,9 @@ TEMP_DIR = tempfile.gettempdir()
 MAX_MESSAGE_LENGTH = 200
 DEFAULT_SIGN_TEXT = "WELCOME TO OREGON\nMAKE THIS SIGN SAY ANYTHING\nTHERE ARE FOUR LINES IN HERE\nFEEL THE FREEDOM, IT BURNS"
 # Spacing between text lines in pixels
-LINE_SPACING_EXTRA = 19
+LINE_SPACING_EXTRA = 14
+TEXT_TOP_PCT = 0.32
+START_Y_OFFSET = 200
 
 # Cache for billboard image
 billboard_image_cache = None
@@ -107,7 +109,7 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
 
     # Define the billboard's horizontal line positions
     # These values are approximate and based on the image dimensions (1784 x 1166)
-    billboard_top = height * 0.28    # Top of the text area
+    billboard_top = height * TEXT_TOP_PCT    # Top of the text area
     billboard_bottom = height * 0.72  # Bottom of the text area
 
     # Calculate available space and position text between the horizontal lines
@@ -122,7 +124,7 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
         start_y = billboard_top + (available_height - total_height) / 2
 
     # Move text up by 200 pixels
-    start_y -= 200
+    start_y -= START_Y_OFFSET
 
     # Draw text
     for i, line in enumerate(lines):
