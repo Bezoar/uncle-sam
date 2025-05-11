@@ -16,6 +16,7 @@ DEFAULT_SIGN_TEXT = "WELCOME TO OREGON\nMAKE THIS SIGN SAY ANYTHING\nTHERE ARE F
 # Spacing between text lines in pixels
 LINE_SPACING_EXTRA = 14
 TEXT_TOP_PCT = 0.32
+START_Y_OFFSET = 200
 
 # Cache for billboard image
 billboard_image_cache = None
@@ -123,7 +124,7 @@ def generate_billboard(message, font_size=80, text_color='#000000'):
         start_y = billboard_top + (available_height - total_height) / 2
 
     # Move text up by 200 pixels
-    start_y -= 200
+    start_y -= START_Y_OFFSET
 
     # Draw text
     for i, line in enumerate(lines):
