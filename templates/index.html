@@ -1,17 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uncle Sam I-5 Billboard Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Add Font Awesome for the gear icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Uncle Sam I-5 Billboard Generator</h1>
+            <div class="header-content">
+                <h1>Uncle Sam I-5 Billboard Generator</h1>
+                <button id="settingsBtn" class="settings-btn" aria-label="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
             <p class="subtitle">Create your own message on the famous Uncle Sam billboard!</p>
         </header>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button class="close-btn" id="closeSettingsBtn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-group">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="darkModeToggle">
+                                <input type="checkbox" id="darkModeToggle">
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="theme-label">Dark Mode</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <main>
             <div class="billboard-container">

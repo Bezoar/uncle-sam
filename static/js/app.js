@@ -1,3 +1,76 @@
+// Dark mode functionality
+const darkModeToggle = document.getElementById('darkModeToggle');
+const html = document.documentElement;
+
+// Check for saved theme preference, otherwise use system preference
+const getPreferredTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+// Set theme and update toggle
+const setTheme = (theme) => {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    darkModeToggle.checked = theme === 'dark';
+};
+
+// Initialize theme
+setTheme(getPreferredTheme());
+
+// Handle toggle changes
+darkModeToggle.addEventListener('change', (e) => {
+    setTheme(e.target.checked ? 'dark' : 'light');
+});
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+    }
+});
+
+// Settings Modal Functionality
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsModal = document.getElementById('settingsModal');
+const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+
+// Open settings modal
+settingsBtn.addEventListener('click', () => {
+    settingsModal.style.display = 'block';
+    // Use setTimeout to ensure the display change has taken effect
+    setTimeout(() => {
+        settingsModal.classList.add('active');
+    }, 10);
+});
+
+// Close settings modal
+const closeModal = () => {
+    settingsModal.classList.remove('active');
+    setTimeout(() => {
+        settingsModal.style.display = 'none';
+    }, 300); // Match the CSS transition duration
+};
+
+closeSettingsBtn.addEventListener('click', closeModal);
+
+// Close modal when clicking outside
+settingsModal.addEventListener('click', (e) => {
+    if (e.target === settingsModal) {
+        closeModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && settingsModal.style.display === 'block') {
+        closeModal();
+    }
+});
+
 // Get DOM elements
 const messageInput = document.getElementById('messageInput');
 const fontSizeSlider = document.getElementById('fontSize');

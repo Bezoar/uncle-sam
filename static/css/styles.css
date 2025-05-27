@@ -1,3 +1,29 @@
+:root[data-theme="light"] {
+    --bg-color: #f3f4f6;
+    --text-color: #333;
+    --title-color: #1e3a8a;
+    --subtitle-color: #6b7280;
+    --control-bg: white;
+    --control-border: #e5e7eb;
+    --control-text: #374151;
+    --billboard-bg: #e5e7eb;
+    --error-bg: #fee2e2;
+    --error-text: #dc2626;
+}
+
+:root[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #e5e7eb;
+    --title-color: #60a5fa;
+    --subtitle-color: #9ca3af;
+    --control-bg: #2d2d2d;
+    --control-border: #404040;
+    --control-text: #e5e7eb;
+    --billboard-bg: #404040;
+    --error-bg: #7f1d1d;
+    --error-text: #fca5a5;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,9 +32,10 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background-color: #f3f4f6;
-    color: #333;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -23,13 +50,13 @@ header {
 }
 
 h1 {
-    color: #1e3a8a;
+    color: var(--title-color);
     font-size: 2.5rem;
     margin-bottom: 10px;
 }
 
 .subtitle {
-    color: #6b7280;
+    color: var(--subtitle-color);
     font-size: 1.1rem;
 }
 
@@ -49,7 +76,7 @@ main {
     border-radius: 8px;
     overflow: hidden;
     min-height: 400px;
-    background-color: #e5e7eb;
+    background-color: var(--billboard-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,7 +94,7 @@ main {
 }
 
 .controls {
-    background: white;
+    background: var(--control-bg);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -83,18 +110,20 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #374151;
+    color: var(--control-text);
 }
 
 textarea {
     width: 100%;
     min-height: 100px;
     padding: 12px;
-    border: 2px solid #e5e7eb;
+    border: 2px solid var(--control-border);
     border-radius: 6px;
     font-size: 16px;
     resize: vertical;
     font-family: inherit;
+    background-color: var(--control-bg);
+    color: var(--text-color);
 }
 
 textarea:focus {
@@ -164,8 +193,8 @@ button {
 }
 
 .error-message {
-    color: #dc2626;
-    background-color: #fee2e2;
+    color: var(--error-text);
+    background-color: var(--error-bg);
     padding: 12px;
     border-radius: 6px;
     margin-top: 20px;
@@ -196,4 +225,172 @@ footer {
     button {
         width: 100%;
     }
+}
+
+/* Dark Mode Toggle Styles */
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #3b82f6;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.theme-label {
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+/* Settings Button */
+.settings-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--title-color);
+    cursor: pointer;
+    padding: 8px;
+    transition: transform 0.2s ease;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.settings-btn:hover {
+    transform: rotate(45deg);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--control-bg);
+    margin: 15% auto;
+    padding: 0;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: scale(0.7);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--control-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: var(--text-color);
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.settings-group {
+    margin-bottom: 20px;
+}
+
+.settings-group:last-child {
+    margin-bottom: 0;
+}
+
+/* Update theme switch wrapper for modal context */
+.theme-switch-wrapper {
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+/* Make header relative for absolute positioning of settings button */
+.header-content {
+    position: relative;
+    padding-right: 50px;
 }
